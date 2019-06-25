@@ -45,8 +45,8 @@ int main () {
             return 0;
         }
         
-        double requiredProxy = 75.0 * d / 100.0 - currentAttendence;
-        cout << requiredProxy;
+        double requiredProxy = 75.0 * d / 100.0 - (double)currentAttendence;
+        cout << requiredProxy << " " << ceil(requiredProxy) << endl;
 
     }
 

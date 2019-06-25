@@ -1,13 +1,14 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
+typedef long long ll;
 
 int main () {
-    int t, gcd, a, b;
+    ll t, gcd, a, b;
     cin >> t;
     while (t--) {
         cin >> a >> b;
-        gcd = __gcd(a, b);
+        gcd = __gcd<ll>(a, b);
         cout << gcd << " " << a * b / gcd << endl;
     }
 }
