@@ -1,10 +1,24 @@
 #include <bits/stdc++.h>
-
+#include <vector>
+using std::vector;
 using namespace std;
 
 string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
+
+int gcd (int a, int b) { 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
+
+int findGCD (vector<int> arr) { 
+    int result = arr[0]; 
+    for (int i = 1; i < arr.size(); i++) 
+        result = gcd(arr[i], result); 
+    return result; 
+} 
 
 /*
  * Complete the 'getTotalX' function below.
@@ -16,11 +30,32 @@ vector<string> split(const string &);
  */
 
 int getTotalX(vector<int> a, vector<int> b) {
+    int count=0, max = a.at(0);
     // get lcm of first vector
     // get gcd of second vector
-    int totalX=0;
-    
-    return totalX;
+    for (auto aval: a) {
+        if (aval>max) {
+            max=aval;
+        }
+    }
+    for (int i=max ; i<=findGCD(b) ; i++) {
+        for (auto aval: a) {
+            if (i % aval) {
+                goto exit;
+                // continue outer loop somehow
+            }
+        }
+        for (auto bval: b) {
+            if (bval % i) {
+                goto exit;
+                // continue outer loop somehow
+            }
+        }
+        count++;
+        exit:
+            continue;
+    }
+    return count;
 }
 
 int main()

@@ -1,160 +1,100 @@
-#include <assert.h>
-#include <limits.h>
-#include <math.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <bits/stdc++.h>
 
-char* readline();
-char** split_string(char*);
+using namespace std;
+
+vector<string> split_string(string);
 
 // Complete the circularArrayRotation function below.
-
-// Please store the size of the integer array to be returned in result_count pointer. For example,
-// int a[3] = {1, 2, 3};
-//
-// *result_count = 3;
-//
-// return a;
-//
-int* circularArrayRotation(int a_count, int* a, int k, int queries_count, int* queries, int* result_count) {
-
-
+vector<int> circularArrayRotation(vector<int> a, int k, vector<int> queries) {
+    vector<int> newVect;
+    int temp;
+    for (auto query: queries) {
+        temp = (a.size() - (k % a.size()) + query) % a.size();
+        newVect.push_back(a.at(temp));
+    }
+    return newVect;
 }
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    ofstream fout(getenv("OUTPUT_PATH"));
 
-    char** nkq = split_string(readline());
+    string nkq_temp;
+    getline(cin, nkq_temp);
 
-    char* n_endptr;
-    char* n_str = nkq[0];
-    int n = strtol(n_str, &n_endptr, 10);
+    vector<string> nkq = split_string(nkq_temp);
 
-    if (n_endptr == n_str || *n_endptr != '\0') { exit(EXIT_FAILURE); }
+    int n = stoi(nkq[0]);
 
-    char* k_endptr;
-    char* k_str = nkq[1];
-    int k = strtol(k_str, &k_endptr, 10);
+    int k = stoi(nkq[1]);
 
-    if (k_endptr == k_str || *k_endptr != '\0') { exit(EXIT_FAILURE); }
+    int q = stoi(nkq[2]);
 
-    char* q_endptr;
-    char* q_str = nkq[2];
-    int q = strtol(q_str, &q_endptr, 10);
+    string a_temp_temp;
+    getline(cin, a_temp_temp);
 
-    if (q_endptr == q_str || *q_endptr != '\0') { exit(EXIT_FAILURE); }
+    vector<string> a_temp = split_string(a_temp_temp);
 
-    char** a_temp = split_string(readline());
-
-    int* a = malloc(n * sizeof(int));
+    vector<int> a(n);
 
     for (int i = 0; i < n; i++) {
-        char* a_item_endptr;
-        char* a_item_str = *(a_temp + i);
-        int a_item = strtol(a_item_str, &a_item_endptr, 10);
+        int a_item = stoi(a_temp[i]);
 
-        if (a_item_endptr == a_item_str || *a_item_endptr != '\0') { exit(EXIT_FAILURE); }
-
-        *(a + i) = a_item;
+        a[i] = a_item;
     }
 
-    int a_count = n;
-
-    int* queries = malloc(q * sizeof(int));
+    vector<int> queries(q);
 
     for (int i = 0; i < q; i++) {
-        char* queries_item_endptr;
-        char* queries_item_str = readline();
-        int queries_item = strtol(queries_item_str, &queries_item_endptr, 10);
+        int queries_item;
+        cin >> queries_item;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (queries_item_endptr == queries_item_str || *queries_item_endptr != '\0') { exit(EXIT_FAILURE); }
-
-        *(queries + i) = queries_item;
+        queries[i] = queries_item;
     }
 
-    int queries_count = q;
+    vector<int> result = circularArrayRotation(a, k, queries);
 
-    int result_count;
-    int* result = circularArrayRotation(a_count, a, k, queries_count, queries, &result_count);
+    for (int i = 0; i < result.size(); i++) {
+        fout << result[i];
 
-    for (int i = 0; i < result_count; i++) {
-        fprintf(fptr, "%d", *(result + i));
-
-        if (i != result_count - 1) {
-            fprintf(fptr, "\n");
+        if (i != result.size() - 1) {
+            fout << "\n";
         }
     }
 
-    fprintf(fptr, "\n");
+    fout << "\n";
 
-    fclose(fptr);
+    fout.close();
 
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
-    char* data = malloc(alloc_length);
+vector<string> split_string(string input_string) {
+    string::iterator new_end = unique(input_string.begin(), input_string.end(), [] (const char &x, const char &y) {
+        return x == y and x == ' ';
+    });
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
+    input_string.erase(new_end, input_string.end());
 
-        if (!line) {
-            break;
-        }
-
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') {
-            break;
-        }
-
-        alloc_length <<= 1;
-
-        data = realloc(data, alloc_length);
-
-        if (!line) {
-            break;
-        }
+    while (input_string[input_string.length() - 1] == ' ') {
+        input_string.pop_back();
     }
 
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
+    vector<string> splits;
+    char delimiter = ' ';
 
-        data = realloc(data, data_length);
-    } else {
-        data = realloc(data, data_length + 1);
+    size_t i = 0;
+    size_t pos = input_string.find(delimiter);
 
-        data[data_length] = '\0';
+    while (pos != string::npos) {
+        splits.push_back(input_string.substr(i, pos - i));
+
+        i = pos + 1;
+        pos = input_string.find(delimiter, i);
     }
 
-    return data;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
+    splits.push_back(input_string.substr(i, min(pos, input_string.length()) - i + 1));
 
     return splits;
 }
