@@ -35,6 +35,9 @@ function getSecondLargest(nums) {
             secMax = max;
             max = nums[i];
         }
+        if (nums[i] > secMax && nums[i] < max) {
+            secMax = nums[i];
+        }
     }
     return secMax;
 }

@@ -1,0 +1,101 @@
+<!-- Enter your HTML code here -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Binary Calculator</title>
+        <style>
+            body {
+                width: 33%;
+            }
+            #res {
+                background-color: lightgray;
+                border: solid;
+                font-size: 20px;
+                height: 48px;
+                margin: 0px;
+            }
+            #btn0, #btn1 {
+                background-color: lightgreen;
+                color: brown;
+            }
+            #btnClr, #btnEql {
+                background-color: darkgreen;
+                color: white;
+            }
+            #btnSum, #btnSub, #btnMul, #btnDiv {
+                background-color:  black;
+                color: red;
+            }
+            #btns > button {
+                width: 25%;
+                height: 36px;
+                font-size: 18px;
+                margin: 0px;
+                float: left;
+            }
+        </style>
+        <script>
+            function dec2bin(dec){
+                return (dec >>> 0).toString(2);
+            }
+
+            window.onload = function () {
+                let btn0 = document.getElementById("btn0");
+                let btn1 = document.getElementById("btn1");
+                let btnClr = document.getElementById("btnClr");
+                let btnEql = document.getElementById("btnEql");
+                let btnSum = document.getElementById("btnSum");
+                let btnSub = document.getElementById("btnSub");
+                let btnMul = document.getElementById("btnMul");
+                let btnDiv = document.getElementById("btnDiv");
+                let divRes = document.getElementById("res");
+                let operation;
+                btn0.addEventListener("click", () => {
+                    divRes.innerHTML += "0";
+                });
+                btn1.addEventListener("click", () => {
+                    divRes.innerHTML += "1";
+                });
+                btnClr.addEventListener("click", () => {
+                    divRes.innerHTML = "";
+                });
+                btnSum.addEventListener("click", () => {
+                    divRes.innerHTML += "+";
+                    operation = "+";
+                });
+                btnSub.addEventListener("click", () => {
+                    divRes.innerHTML += "-";
+                    operation = "-";
+                });
+                btnMul.addEventListener("click", () => {
+                    divRes.innerHTML += "*";
+                    operation = "*";
+                });
+                btnDiv.addEventListener("click", () => {
+                    divRes.innerHTML += "/";
+                    operation = "/";
+                });
+                btnEql.addEventListener("click", () => {
+                    let inter = divRes.innerHTML.split(operation);
+                    let result = eval(parseInt(inter[0], 2) + operation + parseInt(inter[1], 2));
+                    divRes.innerHTML = dec2bin(result);
+                });
+            }
+        </script>
+    </head>
+    <body>
+            <!-- res 	Contains the result of button presses. -->
+        <p id=res></p>
+        <div id=btns>
+            <button type="button" id="btn0">0</button>
+            <button type="button" id="btn1">1</button>
+            <button type="button" id="btnClr">C</button>
+            <button type="button" id="btnEql">=</button>
+            <button type="button" id="btnSum">+</button>
+            <button type="button" id="btnSub">-</button>
+            <button type="button" id="btnMul">*</button>
+            <button type="button" id="btnDiv">/</button>
+        </div>
+    </body>
+</html>

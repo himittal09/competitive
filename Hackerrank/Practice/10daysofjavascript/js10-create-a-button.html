@@ -1,0 +1,23 @@
+<!-- Enter your HTML code here -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Button</title>
+        <style>
+            #btn {
+                width: 96px;
+                height: 48px;
+                font-size: 24px;
+            }
+        </style>
+        <script>
+            document.addEventListener("click", function () {
+                document.getElementById('btn').innerHTML++;
+            });
+        </script>
+    </head>
+    <body>
+        <button type="button" id="btn">0</button>
+    </body>
+</html>
