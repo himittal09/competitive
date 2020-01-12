@@ -1,24 +1,23 @@
-#include <cmath>
 #include <cstdio>
-#include <vector>
 #include <iostream>
-#include <algorithm>
 using namespace std;
-
 
 int main() {
     int n, q;
     cin >> n >> q;
     int* a[n];
     for (int i=0; i<n; i++) {
-        int k, temp;
+        int k;
         cin >> k;
-        int temp_arr[k];
-        a[i] = temp_arr;
+        a[i] = new int[k];
         for (int j=0 ; j<k ; j++) {
-            cin >> temp;
-            temp_arr[j] = temp;
+            cin >> a[i][j];
         }
+    }
+    while (q--) {
+        int i, j;
+        cin >> i >> j;
+        printf("%d\n", a[i][j]);
     }
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
     return 0;

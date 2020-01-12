@@ -1,54 +1,37 @@
 // #include <bits/stdc++.h>
-#include <iostream>
+#include <cstdio>
 #include <vector>
-#include <set>
+#include <stack>
 using namespace std;
-using std::vector;
-
-// Complete the climbingLeaderboard function below.
-vector<int> climbingLeaderboard(set<int, std::greater<int> > scores, vector<int> alice) {
-    
-    vector<int> aliceRank;
-    
-    for (auto aliceScore: alice) {
-        int counter=1;
-        for (auto newScore : scores) {
-            if (newScore > aliceScore) {
-                counter++;
-            } else {
-                break;
-            }
-        }
-        aliceRank.push_back(counter);
-    }
-    return aliceRank;
-}
 
 int main() {
 
     int scores_count, item;
-    cin >> scores_count;
-    set<int, std::greater<int> > scores;
-    // set<int, greater> scores;
+    scanf("%d", &scores_count);
 
-    for (int i = 0; i < scores_count; i++) {
-        cin >> item;
-        scores.insert(item);
+    stack <int> scores;
+
+    while (scores_count--) {
+        scanf("%d", &item);
+        if (scores.empty() || scores.top() != item) {
+            scores.push(item);
+        }
     }
 
     int alice_count;
-    cin >> alice_count;
-    vector<int> alice(alice_count);
+    scanf("%d", &alice_count);
+    vector<int> alice;
 
-    for (int i = 0; i < alice_count; i++) {
-        cin >> item;
-        alice[i] = item;
+    while (alice_count--) {
+        scanf("%d", &item);
+        while (!scores.empty() && scores.top() <= item) {
+            scores.pop();
+        }
+        alice.push_back(scores.size() + 1);
     }
 
-    vector<int> result = climbingLeaderboard(scores, alice);
-
-    for (int i = 0; i < result.size(); i++) {
-        cout << result[i] << endl;
+    for (auto al: alice) {
+        printf("%d\n", al);
     }
 
     return 0;
