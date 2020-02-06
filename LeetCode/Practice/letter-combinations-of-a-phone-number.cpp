@@ -1,0 +1,1 @@
+// s.length() * (log_3{26} ^ s.length())
