@@ -1,5 +1,6 @@
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 using namespace std;
 
@@ -10,14 +11,14 @@ public:
         aSum = accumulate(A.begin(), A.end(), 0);
         bSum = accumulate(B.begin(), B.end(), 0);
         diff = aSum - bSum;
-        if (diff > 0)
+        diff >>= 1;
+        for (int& bVal: B)
         {
-            // a has more candy
+            if (binary_search(A.begin(), A.end(), bVal + diff))
+            {
+                return {bVal+diff, bVal};
+            }
         }
-        else
-        {
-            // b has more candy
-        }
-        
+        return {0, 0};
     }
 };
