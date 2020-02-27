@@ -26,23 +26,16 @@ public:
     }
 
     int romanToInt(string s) {
-        int sol=0, temp=0;
-        for (char ch: s)
+        int sol {0}, lastElementPriority {0}, temp {0};
+        for (int i=0; i<s.length(); i++)
         {
-            if (temp < getValue(ch))
-            {
-                sol += (getValue(ch) - temp);
-                temp=0;
-            }
-            else
-            {
-                sol += temp;    
-                temp = getValue(ch);
-            }
-        }
-        if (temp)
-        {
+            temp = getValue(s[i]);
             sol += temp;
+            if (temp > lastElementPriority)
+            {
+                sol -= 2 * lastElementPriority;
+            }
+            lastElementPriority = temp;
         }
         return sol;
     }

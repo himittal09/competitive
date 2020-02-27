@@ -13,8 +13,7 @@ public:
             {
                 i += 1;
                 isOneCharacter = true;
-            }
-            
+            }            
         }
         return isOneCharacter;
     }

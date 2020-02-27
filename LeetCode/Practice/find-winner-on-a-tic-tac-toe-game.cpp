@@ -3,7 +3,7 @@
 using namespace std;
 
 class Solution {
-    bool isWinning (vector<vector<char> >& gameBoard) const noexcept
+    bool isWinning (const vector<vector<char>>& gameBoard) const noexcept
     {
         for (int i=0; i<3; i++)
         {
@@ -28,21 +28,14 @@ class Solution {
     }
 public:
     string tictactoe(vector<vector<int>>& moves) {
-        bool AMove = true;
-        vector<vector<char> > gameBoard(3, vector<char>(3, ' '));
-        for (auto& move: moves)
+        bool AMove {true};
+        vector<vector<char>> gameBoard(3, vector<char>(3, ' '));
+        for (const auto& move: moves)
         {
             gameBoard[move[0]][move[1]] = (AMove ? 'X' : 'O');
             if (isWinning(gameBoard))
             {
-                if (AMove)
-                {
-                    return "A";
-                }
-                else
-                {
-                    return "B";
-                }
+                return AMove ? "A" : "B";
             }
             AMove = !AMove;
         }

@@ -63,7 +63,9 @@
 			"utility": "cpp",
 			"valarray": "cpp",
 			"xstring": "cpp",
-			"xhash": "cpp"
+			"xhash": "cpp",
+			"xtree": "cpp",
+			"xutility": "cpp"
 		}
 	}
 }
