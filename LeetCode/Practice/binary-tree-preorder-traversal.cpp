@@ -10,26 +10,35 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-
 class Solution {
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> preorderTraversal(TreeNode* root) {
         vector<int> sol;
         stack<TreeNode *> mys;
-        TreeNode *temp = root;
-        while (temp || !mys.empty())
+        
+        if (!root)
         {
-            while (temp)
-            {
-                mys.push(temp);
-                temp = temp->left;
-            }
-            temp = mys.top();
-            mys.pop();
-            sol.push_back(temp->val);
-            temp = temp->right;
+            return sol;
         }
-        return sol;
+
+        mys.push(root);
+
+        while (!mys.empty())
+        {
+            root = mys.top();
+            mys.pop();
+            sol.push_back(root->val);
+            if (root->right)
+            {
+                mys.push(root->right);
+            }
+            if (root->left)
+            {
+                mys.push(root->left);
+            }
+        }
+
+
     }
 };
 

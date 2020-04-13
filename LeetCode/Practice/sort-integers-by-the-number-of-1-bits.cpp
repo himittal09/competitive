@@ -1,4 +1,5 @@
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class Solution {
     }
 public:
     vector<int> sortByBits(vector<int>& arr) {
-        vector<vector<int>> myMap (33);
+        vector<vector<int>> myMap (31);
         vector<int> sol;
         for (const int val: arr)
         {
@@ -20,11 +21,19 @@ public:
         }
         for (auto& arr: myMap)
         {
-            if (arr.size() > 0)
+            if (arr.size())
             {
+                sort(arr.begin(), arr.end());
                 sol.insert(sol.end(), arr.begin(), arr.end());
             }
         }
         return sol;
     }
 };
+
+auto speedup = [](){
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    ios::sync_with_stdio(false);
+    return 0;
+}();

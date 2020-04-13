@@ -65,7 +65,32 @@
 			"xstring": "cpp",
 			"xhash": "cpp",
 			"xtree": "cpp",
-			"xutility": "cpp"
+			"xutility": "cpp",
+			"map": "cpp",
+			"set": "cpp",
+			"algorithm": "cpp",
+			"random": "cpp",
+			"concepts": "cpp",
+			"ios": "cpp",
+			"iterator": "cpp",
+			"locale": "cpp",
+			"memory": "cpp",
+			"queue": "cpp",
+			"regex": "cpp",
+			"stack": "cpp",
+			"string": "cpp",
+			"xfacet": "cpp",
+			"xiosbase": "cpp",
+			"xlocale": "cpp",
+			"xlocbuf": "cpp",
+			"xlocinfo": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"xmemory": "cpp",
+			"xstddef": "cpp",
+			"xtr1common": "cpp"
 		}
 	}
 }

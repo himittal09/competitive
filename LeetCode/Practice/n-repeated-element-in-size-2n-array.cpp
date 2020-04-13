@@ -1,23 +1,28 @@
-#include <iostream>
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int repeatedNTimes(vector<int>& A) {
-        int num = 0;
-        for (int n : A)
+        if (A[0] == A[3])
         {
-            num ^= n;
+            return A[0];
         }
-        return num;
+        for (int i=1; i<A.size()-1; i++)
+        {
+            if (A[i] == A[i-1] || A[i] == A[i+1])
+            {
+                return A[i];
+            }
+            else if (A[i-1] == A[i+1])
+            {
+                return A[i-1];
+            }
+        }
+        return 0;
     }
 };
 
-int main ()
-{
-    Solution obj;
-    vector<int> vec {{2, 1, 2, 5, 3, 2}};
-    cout << obj.repeatedNTimes(vec);
+auto speedup = [](){
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
     return 0;
-}
+}();
