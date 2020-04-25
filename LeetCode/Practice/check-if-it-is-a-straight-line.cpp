@@ -1,28 +1,24 @@
 #include <vector>
 #include <numeric>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 class Solution {
 public:
     bool checkStraightLine(vector<vector<int>>& coordinates) {
-        int x {coordinates[1][0] - coordinates[0][0]};
-        int y {coordinates[1][1] - coordinates[0][1]};
-        int gcd {std::gcd(x, y)};
-        const int xDiff {xDiff / gcd};
-        const int yDiff {yDiff / gcd};
-        for (int i=2; i<coordinates.size(); i++)
-        {
-            x = coordinates[i][0] -  coordinates[i-1][0];
-            y = coordinates[i][1] -  coordinates[i-1][1];
-            // x = x % xDiff;
-            // y = y % yDiff;
-            if ((x | y) || (x != y))
-            {
-                return false;
-            }
-        }
-        return true;
+        const double k = (coordinates[1][0] - coordinates[0][0]) ? static_cast<double>((coordinates[1][1] - coordinates[0][1]) / (coordinates[1][0] - coordinates[0][0])) : 0.0;
+        const double b = coordinates[0][1] - k * coordinates[0][0];
+        return std::all_of(std::next(coordinates.begin()+2), coordinates.end(), [k, b](const auto& coordinate)->bool{
+            return std::abs(coordinate[1] - k * coordinate[0] - b) <= std::numeric_limits<double>::epsilon();
+        });
     }
 };
+
+auto speedup = [](){
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+    return 0;
+}();

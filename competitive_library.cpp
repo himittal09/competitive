@@ -10,6 +10,18 @@ size_t sqrt (size_t num)
     return i-1;
 }
 
+_NODISCARD constexpr int gcd (const int a, const int b) const noexcept
+{
+    int temp;
+    while (b)
+    {
+        temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;  
+}
+
 _NODISCARD constexpr size_t countBits (size_t x) const noexcept
 {
     x = x - ((x >> 1) & 0x55555555);
@@ -17,6 +29,23 @@ _NODISCARD constexpr size_t countBits (size_t x) const noexcept
     x = x + (x >> 4);
     x &= 0xF0F0F0F;
     return (x * 0x01010101) >> 24;
+}
+
+_NODISCARD size_t nextPowerof2 (unsigned int num) const noexcept(noexcept(num << 1))
+{
+    if (num == 0)
+    {
+        return 1;
+    }
+    else if ((n & (num-1)) == 0)
+    {
+        return n;
+    }
+    while ((num & (num-1)) > 1)
+    {
+        num = (num & (num-1));
+    }
+    return num << 1;
 }
 
 // gets you a random integer (signed/ unsigned) number between [floor, ceil)
